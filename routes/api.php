@@ -13,14 +13,14 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/faqs', function (Request $request) {
-        return response()->json(DB::table('f_a_q_s')->get());
+        return response()->json(['data' => DB::table('f_a_q_s')->get()]);
     });
 
     Route::get('/agora-sessions', function (Request $request) {
-        return response()->json(DB::table('agora_sessions')->get());
+        return response()->json(['data' => DB::table('agora_sessions')->get()]);
     });
 
     Route::get('/polls', function (Request $request) {
-        return response()->json(DB::table('polls')->get());
+        return response()->json(["data" => DB::table('polls')->get()]);
     });
 });
