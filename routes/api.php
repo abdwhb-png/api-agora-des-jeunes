@@ -10,7 +10,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/faqs', function (Request $request) {
-        return response()->json(DB::table('faqs')->get());
+        return response()->json(DB::table('f_a_q_s')->get());
     });
 
     Route::get('/agora-sessions', function (Request $request) {
