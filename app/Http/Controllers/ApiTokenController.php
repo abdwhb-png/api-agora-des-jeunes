@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\PersonalAccessTokenCreated;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class ApiTokenController extends Controller
 {
@@ -15,7 +17,7 @@ class ApiTokenController extends Controller
             'tokens' => request()->user()->tokens->map(function ($token) {
                 return $token->toArray() + [
                     'last_used_ago' => optional($token->last_used_at)->diffForHumans(),
-                    'token' => $token->token,
+                    'plainTextToken' => '❌ Unavailable',
                 ];
             }),
             'availablePermissions' => ['create', 'read', 'update', 'delete'],
@@ -53,8 +55,12 @@ class ApiTokenController extends Controller
             $request->input('permissions', [])
         );
 
-        return back()->with('flash', [
-            'token' => explode('|', $token->plainTextToken, 2)[1],
+        $plainText = explode('|', $token->plainTextToken, 2)[1];
+
+        $request->user()->notify(new PersonalAccessTokenCreated($plainText));
+
+        return back(303)->with('status', [
+            'token' => $plainText,
         ]);
     }
 

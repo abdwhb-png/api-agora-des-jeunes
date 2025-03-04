@@ -14,7 +14,6 @@ import SectionBorder from '@/components/jetstream/SectionBorder.vue';
 import TextInput from '@/components/jetstream/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import { Button } from './ui/button';
 
 const props = defineProps({
     tokens: Array,
@@ -42,7 +41,7 @@ const createApiToken = () => {
     createApiTokenForm.post(route('api-tokens.store'), {
         preserveScroll: true,
         onSuccess: (page) => {
-            currentToken.value = page.props.flash.token;
+            currentToken.value = page.props.flash.status?.token;
             displayingToken.value = true;
             createApiTokenForm.reset();
         },
@@ -136,16 +135,9 @@ const copyToken = () => {
                     <template #content>
                         <div class="space-y-6">
                             <div v-for="token in tokens" :key="token.id" class="flex items-center justify-between">
-                                <Button
-                                    variant="link"
-                                    class="break-all"
-                                    @click="
-                                        currentToken = token.token;
-                                        displayingToken = true;
-                                    "
-                                >
+                                <div class="break-all">
                                     {{ token.name }}
-                                </Button>
+                                </div>
 
                                 <div class="ms-2 flex items-center">
                                     <div v-if="token.last_used_ago" class="text-sm text-gray-400">Last used {{ token.last_used_ago }}</div>
