@@ -8,12 +8,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     use HasApiTokens;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -66,7 +68,8 @@ class User extends Authenticatable
             'avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($nameForAvatar) . '&color=7F9CF5&background=EBF4FF',
             ...$user,
             'info' => $userInfo,
-            'tokens' => $tokens
+            'tokens' => $tokens,
+            // 'roles' => $this->getRoleNames(),
         ];
     }
 }
