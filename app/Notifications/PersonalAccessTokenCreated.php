@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 class PersonalAccessTokenCreated extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected $tries = 3;
+    public $tries = 3;
 
     /**
      * Create a new notification instance.

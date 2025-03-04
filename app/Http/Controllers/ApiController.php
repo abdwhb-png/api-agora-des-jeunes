@@ -24,6 +24,7 @@ class ApiController extends Controller
         return response()->json([
             'bearerToken' => $bearerToken,
             'tokenName' => $token->name,
+            'canRead' => $token->can('true'),
         ]);
     }
 }
