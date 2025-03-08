@@ -16,6 +16,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/telescope": "^5.5",
         "laravel/tinker": "^2.10.1",
+        "lucianotonet/groq-laravel": "^0.0.10",
         "spatie/laravel-permission": "^6.16",
         "tightenco/ziggy": "^2.4"
     },

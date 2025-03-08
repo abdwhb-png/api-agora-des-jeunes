@@ -3,21 +3,26 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiTokenController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
 Route::middleware('can:access_internal_api')->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('Dashboard', [...app(ApiTokenController::class)->getTokensData()]);
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::controller(HomeController::class)->group(function () {
+            Route::get('/dashboard', 'dashboard')->name('dashboard');
+            Route::get('/ai', 'aiManager')->name('ai.index');
+            Route::put('/ai', 'aiUpdate')->name('ai.update');
+        });
 
-    Route::middleware('auth')->group(function () {
-        Route::get('/user/api-tokens', [ApiTokenController::class, 'index'])->name('api-tokens.index');
-        Route::post('/user/api-tokens', [ApiTokenController::class, 'store'])->name('api-tokens.store');
-        Route::put('/user/api-tokens/{tokenId}', [ApiTokenController::class, 'update'])->name('api-tokens.update');
-        Route::delete('/user/api-tokens/{tokenId}', [ApiTokenController::class, 'destroy'])->name('api-tokens.destroy');
+        Route::controller(ApiTokenController::class)->group(function () {
+            Route::get('/user/api-tokens', 'index')->name('api-tokens.index');
+            Route::post('/user/api-tokens', 'store')->name('api-tokens.store');
+            Route::put('/user/api-tokens/{tokenId}', 'update')->name('api-tokens.update');
+            Route::delete('/user/api-tokens/{tokenId}', 'destroy')->name('api-tokens.destroy');
+        });
     });
 });
 

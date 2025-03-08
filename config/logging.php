@@ -52,6 +52,13 @@ return [
 
     'channels' => [
 
+        'ai' => [
+            'driver' => 'grok',
+            'path' => storage_path('logs/ai.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', env('LOG_STACK', 'single')),

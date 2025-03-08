@@ -33,7 +33,7 @@ class ApiTokenController extends Controller
      */
     public function index(Request $request)
     {
-        return Inertia::render($request, 'API/Index', [
+        return Inertia::render('TokenManager', [
             ...$this->getTokensData()
         ]);
     }

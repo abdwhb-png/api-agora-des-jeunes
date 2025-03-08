@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'home_webhook_base' => env('HOME_WEBHOOK_BASE', 'https://agora-jeunes.com/webhooks'),
+
 ];

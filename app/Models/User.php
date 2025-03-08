@@ -50,26 +50,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    public function getUser(): array
-    {
-        $user = (array) DB::table('users')->find($this->id);
-        $userInfo = DB::table('user_infos')->where('user_id', $this->id)->first();
-        $name = $userInfo->nom . ($userInfo->prenom ? ' ' . $userInfo->prenom : '');
-
-        $tokens = DB::table('personal_access_tokens')->where('tokenable_id', $this->id)->get();
-
-        $nameForAvatar = $name ? trim(collect(explode(' ', $name))->map(function ($segment) {
-            return mb_substr($segment, 0, 1);
-        })->join(' ')) : $this->email;
-
-        return [
-            'name' => $name,
-            'avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($nameForAvatar) . '&color=7F9CF5&background=EBF4FF',
-            ...$user,
-            'info' => $userInfo,
-            'tokens' => $tokens,
-            // 'roles' => $this->getRoleNames(),
-        ];
-    }
 }
