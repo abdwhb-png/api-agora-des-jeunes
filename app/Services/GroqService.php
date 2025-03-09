@@ -35,7 +35,7 @@ class GroqService implements AiServiceInterface
                 $chatCompletion['choices'][0]['message']['content'],
                 $params,
                 $chatCompletion['choices'],
-                $chatCompletion['usage']['totla_tokens'],
+                $chatCompletion['usage']['total_tokens'],
                 $chatCompletion
             );
         } catch (GroqException $e) {

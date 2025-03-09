@@ -11,6 +11,19 @@ export default {
     ],
     theme: {
         extend: {
+            base: {
+                colors: {
+                    contextual: {
+                        success: {
+                            default: '#17C653',
+                            active: '#04B440',
+                            light: '#EAFFF1',
+                            clarity: 'rgba(23, 198, 83, 0.20)',
+                            inverse: '#ffffff',
+                        },
+                    },
+                },
+            },
             fontFamily: {
                 sans: ['Instrument Sans', ...defaultTheme.fontFamily.sans],
             },
@@ -49,6 +62,13 @@ export default {
                 destructive: {
                     DEFAULT: 'hsl(var(--destructive))',
                     foreground: 'hsl(var(--destructive-foreground))',
+                },
+                success: {
+                    DEFAULT: 'var(--tw-success)',
+                    active: 'var(--tw-success-active)',
+                    light: 'var(--tw-success-light)',
+                    clarity: 'var(--tw-success-clarity)',
+                    inverse: 'var(--tw-success-inverse)',
                 },
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',

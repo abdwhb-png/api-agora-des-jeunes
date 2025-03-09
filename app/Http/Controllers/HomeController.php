@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $validated = $request->validate([
             'groq_model' => 'required|string',
-            'groq_api_key' => 'required|string',
+            'groq_api_key' => 'nullable|string',
         ]);
 
         DB::table('ai_settings')->updateOrInsert([
