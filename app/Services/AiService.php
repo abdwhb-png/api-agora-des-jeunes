@@ -24,10 +24,12 @@ class AiService
             $messages[] = ['role' => 'system', 'content' => $systemPrompt];
         }
 
+        \Log::debug('aiservice', $messages);
+
         $result = $this->ai->simpleChat($messages);
 
         StoreAiUsage::dispatch(Arr::except($result, ['success', 'error', "output"]));
 
-        return $this->ai->simpleChat(Arr::only($result, ['success', 'error', "output"]));
+        return Arr::only($result, ['success', 'error', "output"]);
     }
 }

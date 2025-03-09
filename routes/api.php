@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/groq', GroqController::class);
 
     Route::prefix('ai')->controller(AIChatController::class)->group(function () {
-        Route::post('/chat', 'chat');
+        Route::any('/chat', 'chat');
         Route::post('/memory-chat', 'chatWithMemory');
     });
 });

@@ -11,12 +11,11 @@ trait AiServiceTrait
 
     public static function validateMessages(array $messages): array
     {
-        $validated = Validator::make($messages, [
-            '*.role' => 'sometimes|in:user,system',
-            '*.content' => 'required|string',
-        ])->validate();
-
-        return $validated;
+        return Validator::make(['messages' => $messages], [
+            'messages' => 'required|array',
+            'messages.*.role' => 'sometimes|in:user,system',
+            'messages.*.content' => 'required|string',
+        ])->validate()['messages']; // On retourne seulement la partie validée
     }
 
     public static function parseResponse($answer, $inputText = null, $outputText = null, $tokensUsed = null, array $metadata = []): array

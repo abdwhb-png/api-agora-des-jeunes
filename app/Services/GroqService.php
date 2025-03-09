@@ -24,10 +24,10 @@ class GroqService implements AiServiceInterface
     public function simpleChat(array $messages): array
     {
         try {
-            // $validatedMessages = $this->validateMessages($messages);
+            $validatedMessages = $this->validateMessages($messages);
             $params = [
                 'model'    => $this->model,
-                'messages' => $validatedMessages,
+                'messages' => $validatedMessages ?? $messages,
             ];
             $chatCompletion = $this->groq->chat()->completions()->create($params);
 
